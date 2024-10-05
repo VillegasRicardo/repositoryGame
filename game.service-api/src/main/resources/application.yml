@@ -1,0 +1,26 @@
+server:
+  port: 8085
+spring:
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/reto
+    username: postgres
+    password: root
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.web.servlet.error.ErrorMvcAutoConfiguration
+  
+  jpa:
+    show-sql: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      javax.persistence.create-database-schemas: true
+      org:
+        hibernate:
+          envers:
+            default_schema: auditor
+            store_data_at_delete: true
+            global_with_modified_flag: true
+            audit_strategy: org.hibernate.envers.strategy.ValidatyAuditStrategy
+  
+
