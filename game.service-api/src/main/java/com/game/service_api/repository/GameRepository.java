@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import org.springframework.stereotype.Repository;
 
-import com.game.service_api.entity.Game;
+import com.game.service_api.commons.entities.Game;
 
 /**
  * Repositorio JPA para gestionar las operaciones CRUD relacionadas con la entidad Game.
