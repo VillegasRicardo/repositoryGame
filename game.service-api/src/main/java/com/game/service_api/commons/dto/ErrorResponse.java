@@ -6,6 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Clase ErrorResponse que representa una respuesta de error.
+ */
 @Setter
 @Getter
 @Builder
