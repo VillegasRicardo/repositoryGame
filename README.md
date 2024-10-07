@@ -1,2 +1,6 @@
 # repositoryGame
-Esto es un avance del proyecto de asesoramiento
+
+Versionamiento:
+
+0.0.1 - Proyecto 1 - Terminado
+
