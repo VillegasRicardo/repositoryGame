@@ -75,8 +75,8 @@ public class GameController implements GameApi{
      * @return la entidad del juego actualizado
      */
     @Override
-    public ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game gameModel) {
-    	Game gameUpdateStatus = gameService.updateStatusGame(id,gameModel);
+    public ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game game) {
+    	Game gameUpdateStatus = gameService.updateStatusGame(id,game);
     	return ResponseEntity.ok(gameUpdateStatus);
     } 
       

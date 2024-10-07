@@ -19,6 +19,16 @@ import com.game.service_api.commons.entities.Game;
  */
 @RequestMapping(ApiPathVariables.V1_ROUTE + ApiPathVariables.GAME_ROUTE)
 public interface GameApi {
+	
+	/**
+	 * Maneja las solicitudes HTTP POST para guardar un juego.
+
+	 * Este método recibe un objeto Game en el cuerpo de la solicitud y lo guarda en el sistema.
+	 * Devuelve una respuesta HTTP que contiene el objeto Game guardado.
+	 * 
+	 * @param game El objeto Game que se va a guardar.
+	 * @return Un ResponseEntity que contiene el objeto Game guardado.
+	 */
     @PostMapping
 	ResponseEntity<Game> saveGame(@RequestBody Game game); 
     
@@ -34,7 +44,7 @@ public interface GameApi {
      * @param name el nombre del juego
      * @return una lista de juegos que coinciden con el nombre
      */
-    @GetMapping(value = "/search-name/{name}")
+    @GetMapping(value = "/names/{name}")
 	List<Game> getGameByName(@PathVariable String name);
 	
     /**
@@ -42,7 +52,7 @@ public interface GameApi {
      * @param id el ID del juego
      * @return el modelo del juego que coincide con el ID
      */
-    @GetMapping(value = "/search-id/{id}")
+    @GetMapping(value = "{id}")
     ResponseEntity<Game> getGameById(@PathVariable Long id);
 	
     /**
@@ -51,6 +61,6 @@ public interface GameApi {
      * @param statusUpdateDTO el DTO que contiene el nuevo estatus
      * @return la entidad del juego actualizado
      */
-    @PatchMapping(value = "/update-status/{id}")
-	ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game gameModel);
+    @PatchMapping(value = "/status/{id}")
+	ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game game);
 }
