@@ -26,13 +26,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param name el nombre del juego
      * @return una lista de juegos que coinciden con el nombre proporcionado
      */
-	List<Game> findByName(String name);
+	List<Game> findAllByName(String name);
 	
 	/**
 	 * Encuentra un juego por su ID.
 	 * @param id el ID del juego
 	 * @return el juego que coincide con el ID proporcionado
 	 */
-	Optional<Game> findById(Long id);
+	Optional<Game> findAllById (Long id);
 	
 }

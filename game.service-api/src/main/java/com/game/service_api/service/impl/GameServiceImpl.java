@@ -1,10 +1,12 @@
 package com.game.service_api.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import com.game.service_api.commons.constants.Constantes;
 import com.game.service_api.commons.entities.Game;
 import com.game.service_api.commons.exceptions.GameException;
 import com.game.service_api.repository.GameRepository;
@@ -43,7 +45,7 @@ public class GameServiceImpl implements GameService {
      */
     @Override
 	public List<Game> getGameAll (){
-		return gameRepository.findAll();
+		return this.gameRepository.findAll();
 	}
 	
 	/**
@@ -53,19 +55,19 @@ public class GameServiceImpl implements GameService {
 	 */
     @Override
 	public List<Game> getGameByName(String nameRequest) {		
-    	List<Game> gameShearchAll = this.gameRepository.findByName(nameRequest);		
+    	List<Game> gameShearchAll = this.gameRepository.findAllByName(nameRequest);		
 		return gameShearchAll;
 	}
 	
 	/**
      * Obtiene un juego por su ID.
-     * @param id el ID del juego
+     * @param idRequest el ID del juego
      * @return el modelo del juego que coincide con el ID
      * @throws RuntimeException si no se encuentra ningún juego con el ID proporcionado
      */
     @Override
 	public Game getGameById(Long idRequest) {		
-		return this.gameRepository.findById(idRequest)
+		return this.gameRepository.findAllById(idRequest)
 	            .map(game -> {
 	                Game gameResponse = new Game();
 	                gameResponse.setId(game.getId());
@@ -73,20 +75,39 @@ public class GameServiceImpl implements GameService {
 	                gameResponse.setEstatus(game.getEstatus());
 	                return gameResponse;
 	            })
-	            .orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND,"No se encontró ningún resultado con el valor de entrada."));
+	            .orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND, Constantes.NO_SE_ENCONTRO_RESULTADO));
 	}
 
 	/**
 	 * Actualiza el estatus de un juego.
 	 * @param id el ID del juego
-	 * @param gameModel el modelo del juego con el estatus actualizado
+	 * @param game el modelo del juego con el estatus actualizado
 	 * @return el modelo del juego actualizado
 	 */
     @Override
 	public Game updateStatusGame(Long id, Game gameRequest) {
-		Game game = Game.convertirToEntity(gameRepository.findById(id)); 
-		game.setEstatus(gameRequest.getEstatus());
-		 return gameRepository.save(game);
+		return Optional.of(gameRequest)
+				.map(game -> {
+					game.setId(id);
+				 return this.gameRepository.save(game);	
+				})
+				.orElseThrow(() -> new GameException(HttpStatus.BAD_REQUEST, Constantes.NO_SE_ACTUALIZO_REGISTRO));
 	}
-		
+	
+    /**
+     * Elimina un juego por su ID.
+     * 
+     * Este método busca un juego por su ID y lo elimina del repositorio. Si el juego no se encuentra,
+     * lanza una excepción GameException con un estado HTTP 404 (Not Found).
+     * 
+     * @param idRequest el ID del juego a eliminar
+     * @throws GameException si el juego no se encuentra
+     */
+    @Override
+    public void deleteGame(Long idRequest) {
+    	this.gameRepository.findAllById(idRequest).orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND, Constantes.NO_SE_ENCONTRO_RESULTADO));
+    	this.gameRepository.deleteById(idRequest);
+    	
+    }
+      
 }

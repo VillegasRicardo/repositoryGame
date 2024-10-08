@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.game.service_api.commons.constants.Constantes;
 import com.game.service_api.commons.entities.Game;
+import com.game.service_api.commons.exceptions.GameException;
 import com.game.service_api.controller.GameApi;
 import com.game.service_api.service.GameService;
 
@@ -34,8 +36,7 @@ public class GameController implements GameApi{
      */
     @Override
     public ResponseEntity<Game> saveGame(@RequestBody Game game) {
-    	Game gameCreated = this.gameService.saveGame(game);
-        return ResponseEntity.ok(gameCreated);
+        return ResponseEntity.ok(this.gameService.saveGame(game));
     }
    
     /**
@@ -53,31 +54,42 @@ public class GameController implements GameApi{
      * @return una lista de juegos que coinciden con el nombre
      */
     @Override
-    public List<Game> getGameByName(@PathVariable String name) {
-        return gameService.getGameByName(name);
+    public List<Game> getGameByName(@PathVariable("name") String nameRequest) {
+        return gameService.getGameByName(nameRequest);
     }
 
     /**
      * Obtiene un juego por su ID.
-     * @param id el ID del juego
+     * @param idRequest el ID del juego
      * @return el modelo del juego que coincide con el ID
      */
     @Override
-    public ResponseEntity<Game> getGameById(@PathVariable Long id) {
-    	Game gameFound = gameService.getGameById(id);
-    	return ResponseEntity.ok(gameFound);
+    public ResponseEntity<Game> getGameById(@PathVariable("id") Long idRequest) { 
+    	return ResponseEntity.ok(gameService.getGameById(idRequest));
     }
   
     /**
      * Actualiza el estatus de un juego.
-     * @param id el ID del juego
+     * @param idRequest el ID del juego
      * @param statusUpdateDTO el DTO que contiene el nuevo estatus
      * @return la entidad del juego actualizado
      */
     @Override
-    public ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game game) {
-    	Game gameUpdateStatus = gameService.updateStatusGame(id,game);
-    	return ResponseEntity.ok(gameUpdateStatus);
+    public ResponseEntity<Game> updateStatus(@PathVariable("id") Long idRequest, @RequestBody Game gameRequest) {
+    	return ResponseEntity.ok(gameService.updateStatusGame(idRequest, gameRequest));
     } 
       
+    /**
+     * Elimina un juego por su ID.
+     * Este método busca un juego por su ID y lo elimina del repositorio. Si el juego no se encuentra,
+     * lanza una excepción GameException con un estado HTTP 404 (Not Found).
+     * @param idRequest el ID del juego a eliminar
+     * @throws GameException si el juego no se encuentra
+     */
+    @Override
+    public ResponseEntity<String> deleteGame(@PathVariable("id") Long idRequest) {
+        gameService.deleteGame(idRequest);
+        return ResponseEntity.ok(Constantes.REGISTRO_ELIMINADO_CORRECTAMENTE);
+    }
+    
 }

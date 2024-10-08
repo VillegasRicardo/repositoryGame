@@ -3,6 +3,7 @@ package com.game.service_api.controller;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.game.service_api.commons.constants.ApiPathVariables;
 import com.game.service_api.commons.entities.Game;
+import com.game.service_api.commons.exceptions.GameException;
 
 
 /**
@@ -53,7 +55,7 @@ public interface GameApi {
      * @return el modelo del juego que coincide con el ID
      */
     @GetMapping(value = "{id}")
-    ResponseEntity<Game> getGameById(@PathVariable Long id);
+    ResponseEntity<Game> getGameById(@PathVariable("id") Long idRequest);
 	
     /**
      * Actualiza el estatus de un juego.
@@ -63,4 +65,16 @@ public interface GameApi {
      */
     @PatchMapping(value = "/status/{id}")
 	ResponseEntity<Game> updateStatus(@PathVariable Long id, @RequestBody Game game);
+    
+    /**
+     * Elimina un juego por su ID.
+     * Este método busca un juego por su ID y lo elimina del repositorio. Si el juego no se encuentra,
+     * lanza una excepción GameException con un estado HTTP 404 (Not Found).
+     * @param idRequest el ID del juego a eliminar
+     * @return 
+     * @throws GameException si el juego no se encuentra
+     */
+    @DeleteMapping(value ="/{id}")
+    ResponseEntity<String> deleteGame(@PathVariable("id") Long idRequest);
+    
 }
