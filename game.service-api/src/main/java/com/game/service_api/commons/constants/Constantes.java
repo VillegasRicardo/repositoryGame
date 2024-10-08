@@ -20,7 +20,7 @@ public class Constantes {
 	
 	public static final String NO_SE_ENCONTRO_RESULTADO = "No se encontró ningún resultado con el valor de entrada."; 
 	public static final String NO_SE_ACTUALIZO_REGISTRO = "No se actualizo el registro.";
-    public static final String REGISTRO_ELIMINADO_CORRECTAMENTE = "Juego eliminado exitosamente.";
+    public static final String REGISTRO_ELIMINADO_CORRECTAMENTE = "Registro eliminado exitosamente.";
 
 
 }

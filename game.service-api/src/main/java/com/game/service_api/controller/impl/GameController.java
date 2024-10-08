@@ -2,6 +2,7 @@ package com.game.service_api.controller.impl;
 
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,7 +90,7 @@ public class GameController implements GameApi{
     @Override
     public ResponseEntity<String> deleteGame(@PathVariable("id") Long idRequest) {
         gameService.deleteGame(idRequest);
-        return ResponseEntity.ok(Constantes.REGISTRO_ELIMINADO_CORRECTAMENTE);
+        return ResponseEntity.status(HttpStatus.OK).body(Constantes.REGISTRO_ELIMINADO_CORRECTAMENTE);
     }
     
 }

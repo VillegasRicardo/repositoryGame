@@ -105,7 +105,7 @@ public class GameServiceImpl implements GameService {
      */
     @Override
     public void deleteGame(Long idRequest) {
-    	this.gameRepository.findAllById(idRequest).orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND, Constantes.NO_SE_ENCONTRO_RESULTADO));
+    	this.gameRepository.findById(idRequest).orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND, Constantes.NO_SE_ENCONTRO_RESULTADO));
     	this.gameRepository.deleteById(idRequest);
     	
     }
