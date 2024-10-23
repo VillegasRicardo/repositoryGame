@@ -32,14 +32,14 @@ public class Game implements Serializable {
 	@Column(name = "name", updatable = true, nullable = false, unique = false, length = 150)
     private String name;
 	
-	@Column(name = "estatus", updatable = true, nullable = false, unique = false)
-    private Boolean estatus;
+	//@Column(name = "estatus", updatable = true, nullable = false, unique = false)
+    //private Boolean estatus;
 
 	public static Game convertirToEntity(Optional<Game> game) {
 		Game gameResponse = new Game();
 		gameResponse.setId(game.get().getId());
 		gameResponse.setName(game.get().getName());
-		gameResponse.setEstatus(game.get().getEstatus());
+		//gameResponse.setEstatus(game.get().getEstatus());
 		return gameResponse;
 	}
 	

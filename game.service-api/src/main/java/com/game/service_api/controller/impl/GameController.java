@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.game.service_api.commons.constants.Constantes;
@@ -36,7 +38,8 @@ public class GameController implements GameApi{
      * @return la entidad del juego guardado
      */
     @Override
-    public ResponseEntity<Game> saveGame(@RequestBody Game game) {
+    public ResponseEntity<Game> saveGame(String id, @RequestBody Game game) {
+    	
         return ResponseEntity.ok(this.gameService.saveGame(game));
     }
    

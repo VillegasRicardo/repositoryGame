@@ -72,7 +72,7 @@ public class GameServiceImpl implements GameService {
 	                Game gameResponse = new Game();
 	                gameResponse.setId(game.getId());
 	                gameResponse.setName(game.getName());
-	                gameResponse.setEstatus(game.getEstatus());
+	                //gameResponse.setEstatus(game.getEstatus());
 	                return gameResponse;
 	            })
 	            .orElseThrow(() -> new GameException(HttpStatus.NOT_FOUND, Constantes.NO_SE_ENCONTRO_RESULTADO));

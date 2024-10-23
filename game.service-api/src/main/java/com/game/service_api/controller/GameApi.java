@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.game.service_api.commons.constants.ApiPathVariables;
@@ -32,7 +33,7 @@ public interface GameApi {
 	 * @return Un ResponseEntity que contiene el objeto Game guardado.
 	 */
     @PostMapping
-	ResponseEntity<Game> saveGame(@RequestBody Game game); 
+	ResponseEntity<Game> saveGame(@RequestHeader("userIdRequest") String userId, @RequestBody Game game); 
     
     /**
      * Obtiene todos los juegos.
